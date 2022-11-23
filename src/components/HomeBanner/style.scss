@@ -1,0 +1,25 @@
+@import "style/variables";
+
+.home-banner{
+    background-color: $primary;
+    width: 100vw;
+    padding: 100px 120px;
+    border-bottom: 1px solid $black-100;
+
+    .inner{
+        margin: 0px auto;
+        width: 100%;
+        max-width: 1800px;
+    }
+
+    h1{
+        font-size: 70px;
+        margin-bottom: 25px;
+        font-family: 'Yeseva One', cursive;
+        max-width: 700px;
+    }
+
+    p{
+        max-width: 500px;
+    }
+}

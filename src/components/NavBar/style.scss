@@ -1,0 +1,28 @@
+@import "style/variables";
+
+.navbar{
+
+    padding: 17px 120px;
+    background-color: $primary;
+    border-bottom: 1px solid $black-100;
+
+
+    .navbar-left, .navbar-right{
+        width: 50%;
+    }
+
+    .navbar-right{
+        justify-content: right;
+    }
+
+    h1.logo{
+        font-family: 'Yeseva One', cursive;
+        font-size: 30px;
+        user-select: none;
+    }
+
+    .logo-container{
+        cursor: pointer;
+    }
+
+}

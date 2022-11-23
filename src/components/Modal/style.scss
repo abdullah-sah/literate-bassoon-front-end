@@ -1,0 +1,47 @@
+@import "style/variables";
+
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: $black-00;
+    padding: 100px 150px;
+    text-align: center;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 3px;
+
+    &:not(.open){
+        display: none;
+    }
+
+    .close-icon{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+
+
+    h1{
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+
+    .btn{
+        width: fit-content;
+        margin: 0px auto;
+    }
+}
+
+.modal-bg{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($black-100,0.8);
+
+    &:not(.open){
+        display: none;
+    }
+}

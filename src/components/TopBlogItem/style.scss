@@ -1,0 +1,15 @@
+@import "style/variables";
+
+
+.top-blog-item{
+
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    .profile-icon{
+        height: 35px;
+        width: 35px;
+        background-color: #faa;
+        margin-right: 15px;
+    }
+}
