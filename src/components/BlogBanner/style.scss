@@ -1,0 +1,16 @@
+@import "style/variables";
+
+.blog-banner{
+    padding: 120px 120px 0px 120px;
+
+    h1{
+        font-family: 'Yeseva One', cursive;
+        font-size: 50px;
+    }
+
+    .rule{
+        width: 200px;
+        margin-top: 25px;
+        border-bottom: 2px solid $black-20;
+    }
+}

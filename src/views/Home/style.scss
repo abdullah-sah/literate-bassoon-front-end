@@ -1,0 +1,29 @@
+@import "style/variables";
+
+
+.main{
+    padding: 50px 120px;
+
+
+    h4{
+        color: $black-80;
+        font-size: 17px;
+        font-weight: 400;
+        margin-bottom: 30px;
+    }
+
+    .latest-posts-container,.top-blogs-container{
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+
+    .latest-posts-container{
+        width: 75%;
+        margin-right: 70px;
+    }
+
+    .top-blogs-container{
+        width: 25%;
+    }
+
+}

@@ -1,0 +1,55 @@
+@import "style/variables";
+
+.post {
+  padding: 75px 0px;
+  border-bottom: 1px solid $black-15;
+
+  .thumbnail-container {
+    margin-left: auto;
+
+    img {
+      width: 250px;
+    }
+  }
+
+  input{
+    width: 100%;
+  }
+
+  .edit-btn{
+    background-color: $black-90;
+    width: fit-content;
+    color: $black-00;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 20px;
+    user-select: none;
+    margin-right: 10px;
+  }
+
+  .main-container{
+      margin-right: 65px;
+      width: 100%;
+  }
+
+  h2.title {
+    color: $black-90;
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  p.content {
+    color: $black-70;
+    line-height: 1.4em;
+  }
+
+  h3.creation-date {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 7px;
+    color: $black-60;
+  }
+
+}
