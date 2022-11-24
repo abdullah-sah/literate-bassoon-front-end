@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "views/Home";
 import Blog from "views/Blog";
 import ErrorPage404 from "views/ErrorPage404"
+import ViewAll from "views/ViewAllBlogs"
 
 import "style/main.scss"
 
@@ -16,6 +17,9 @@ root.render(
 
         {/* Homepage */}
         <Route index element={<Home />} />
+
+        {/* View All Blogs Page */}
+        <Route path="/all-blogs" element = {<ViewAll />} />
 
         {/* Visit blog */}
         <Route path="/:blogAddress" element={<Blog />} />
