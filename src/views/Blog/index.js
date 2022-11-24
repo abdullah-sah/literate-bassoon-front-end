@@ -19,18 +19,18 @@ function Blog() {
   const [newPostModalOpen, setNewPostModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const location = useLocation().pathname.substring(1);
-  const name = location.split("-")[0];
+  const [name, setName] = useState()
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginToken, setLoginToken] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
     fetch("http://localhost:3000/blog/" + location)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          setName(data.blogTitle)
           setPosts(data.posts);
         } else {
           navigate('/404');
