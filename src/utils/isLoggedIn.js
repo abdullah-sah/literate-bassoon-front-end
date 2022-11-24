@@ -1,9 +1,9 @@
-import {retrieve} from "./retrieve.js"
+import retrieve from "utils/retrieve.js"
 
 async function isLoggedIn() {
     const blogToken = localStorage.getItem("blogToken")
     if (blogToken !== null) {
-        const loggedIn = await retrieve("loginStatus", "POST", {token: blogToken})
+        const loggedIn = await retrieve("blog/loginStatus", "POST", JSON.stringify({token: blogToken}))
         if (loggedIn.success) {
             return {
                 loggedIn: true,
@@ -15,6 +15,11 @@ async function isLoggedIn() {
                 loggedIn: false,
                 error: loggedIn.error
             }
+        }
+    } else {
+        return {
+            loggedIn: false,
+            error: "No login token"
         }
     }
 }
