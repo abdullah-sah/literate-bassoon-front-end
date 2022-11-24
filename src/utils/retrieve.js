@@ -1,6 +1,6 @@
 async function retrieve(urlEnd, method, body={}) {
     try {
-        const result = await fetch(`http://server.ronak.dev:3000/${urlEnd}`, {
+        const result = await fetch(`http://localhost:3000/${urlEnd}`, {
             method: method,
             headers: {
                 "Content-Type": "application/json"
