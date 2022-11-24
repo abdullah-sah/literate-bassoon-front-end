@@ -1,6 +1,5 @@
 async function retrieve(urlEnd, method, body = null) {
 	try {
-
 		let reqObj = {
 			method: method,
 			headers: {

@@ -17,6 +17,20 @@ body{
     justify-content: center;
 }
 
+
+//Extra Styling for the home page nav to encorporate two buttons
+.v-center-horizontal{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: right;
+}
+
+.v-center-horizontal > * {
+    margin-left: 20px;
+}
+//Ends here
+
 .flex{
     display: flex;
 }
