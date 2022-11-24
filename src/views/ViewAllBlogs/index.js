@@ -4,18 +4,20 @@ import { useEffect, useState } from "react";
 import SearchElement from "components/SearchElement"
 import EmptySearchElement from "components/EmptySearchElement"
 import SearchBar from "components/SearchBar"
+import retrieve from "utils/retrieve";
 
 function ViewAll() {
 
     const [allBlogs, setAllBlogs] = useState([])
 
-    useEffect(() => {
-        fetch("http://localhost:5001/blog") //Change port for own machine
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.success) {
-                console.log(data.blogs)
-                setAllBlogs(data.blogs)
+    useEffect( () => {
+        const data = retrieve("blog", "GET")
+          // call the function
+        data.then((actualData) => {
+            console.log(actualData)
+            if (actualData.success) {
+                console.log(actualData.blogs)
+                setAllBlogs(actualData.blogs)
             } else {
                 console.log("No Blogs")
             }
