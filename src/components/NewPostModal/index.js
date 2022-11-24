@@ -2,6 +2,7 @@ import "./style.scss";
 import Modal from "components/Modal";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import retrieve from "utils/retrieve";
 
 function NewPostModal(props) {
   const location = useLocation().pathname.substring(1);
@@ -9,25 +10,23 @@ function NewPostModal(props) {
   const [content, setContent] = useState();
   const [info, setInfo] = useState();
   async function createPost() {
-    try {
-      await fetch("http://localhost:5001/blog/" + location + "/posts", {
-        method: "PUT",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          postTitle: title,
-          postContent: content,
-        }),
-      }).then((res) => {
-        if (res.status === 200) {
-          setInfo(
-            "A new post was created at " + new Date().toLocaleTimeString()
-          );
+    retrieve(
+      "blog/" + location + "/posts",
+      "PUT",
+      JSON.stringify({
+        postTitle: title,
+        postContent: content,
+        token: localStorage.getItem("blogToken"),
+      })
+    )
+      .then((res) => {
+        if (res.success) {
+          window.location.reload();
+        } else {
+          setInfo("Something went wrong...");
         }
-      });
-    } catch (error) {
-      console.log(error);
-      setInfo("Something went wrong...");
-    }
+      })
+      .catch((e) => setInfo("Something went really wrong..."));
   }
   return (
     <Modal
