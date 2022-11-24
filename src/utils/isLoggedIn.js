@@ -7,7 +7,8 @@ async function isLoggedIn() {
         if (loggedIn.success) {
             return {
                 loggedIn: true,
-                blogAddress: loggedIn.blogAddress
+                blogAddress: loggedIn.blogAddress,
+                token: localStorage.getItem("blogToken")
             }
         } else {
             return {
