@@ -19,34 +19,32 @@ function Blog() {
   const [newPostModalOpen, setNewPostModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const location = useLocation().pathname.substring(1);
-  const [name, setName] = useState()
+  const [name, setName] = useState();
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginToken, setLoginToken] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch("http://localhost:3000/blog/" + location)
+    fetch("http://localhost:5001/blog/" + location)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          setName(data.blogTitle)
+          setName(data.blogTitle);
           setPosts(data.posts);
         } else {
-          navigate('/404');
+          navigate("/404");
         }
       })
       .catch((e) => console.log(e));
 
     isLoggedIn().then((status) => {
-
-      if(status.loggedIn && status.blogAddress == name){
+      if (status.loggedIn && status.blogAddress == name) {
         setLoggedIn(true);
         setLoginToken(status.token);
       } else {
         setLoggedIn(false);
       }
-
     });
   }, [location]);
 
@@ -54,16 +52,18 @@ function Blog() {
     <>
       <NavBar
         buttons={
-          !loggedIn && <div className="nav-item v-center">
-            <div
-              className="btn create-blog-btn"
-              onClick={() => {
-                setLoginModalOpen(true);
-              }}
-            >
-              Login
+          !loggedIn && (
+            <div className="nav-item v-center">
+              <div
+                className="btn create-blog-btn"
+                onClick={() => {
+                  setLoginModalOpen(true);
+                }}
+              >
+                Login
+              </div>
             </div>
-          </div>
+          )
         }
       ></NavBar>
 
@@ -84,16 +84,16 @@ function Blog() {
       ></LoginModal>
 
       <div className="posts-container">
-
-        { loggedIn && <div
-          className="btn no-effect"
-          onClick={() => {
-            setNewPostModalOpen(true);
-          }}
-        >
-          Add post
-        </div>}
-
+        {loggedIn && (
+          <div
+            className="btn no-effect"
+            onClick={() => {
+              setNewPostModalOpen(true);
+            }}
+          >
+            Add post
+          </div>
+        )}
 
         {posts?.map((item, index) => {
           return (

@@ -10,7 +10,7 @@ function NewPostModal(props) {
   const [info, setInfo] = useState();
   async function createPost() {
     try {
-      await fetch("http://localhost:3001/blog/" + location + "/posts", {
+      await fetch("http://localhost:5001/blog/" + location + "/posts", {
         method: "PUT",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
