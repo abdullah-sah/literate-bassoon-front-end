@@ -8,6 +8,8 @@ import Post from "components/Post";
 import LoginModal from "components/LoginModal";
 import BlogBanner from "components/BlogBanner";
 
+import retrieve from "utils/retrieve";
+
 import isLoggedIn from "utils/isLoggedIn";
 
 import NewPostModal from "components/NewPostModal";
@@ -27,9 +29,7 @@ function Blog() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    fetch("http://localhost:3000/blog/" + location)
-      .then((res) => res.json())
-      .then((data) => {
+    retrieve("blog/" + location, 'GET').then((data) => {
         if (data.success) {
           setPosts(data.posts);
         } else {
@@ -40,7 +40,7 @@ function Blog() {
 
     isLoggedIn().then((status) => {
 
-      if(status.loggedIn && status.blogAddress == name){
+      if(status.loggedIn && status.blogAddress == location){
         setLoggedIn(true);
         setLoginToken(status.token);
       } else {
@@ -78,6 +78,7 @@ function Blog() {
 
       <LoginModal
         open={loginModalOpen}
+        blogAddress={location}
         closeHandler={() => {
           setLoginModalOpen(false);
         }}
