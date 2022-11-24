@@ -21,7 +21,7 @@ function Home() {
     <>
       <NavBar
         buttons={
-          <div className="nav-item v-center">
+          <div className="nav-item v-center-horizontal">
             <div
               className="btn create-blog-btn"
               onClick={() => {
@@ -30,6 +30,14 @@ function Home() {
             >
               Create blog
             </div>
+            <div
+              className="btn create-blog-btn"
+                onClick={() => {
+                  navigate("/all-blogs")
+                }}
+              >
+                View All Blogs
+              </div>
           </div>
         }
       ></NavBar>
