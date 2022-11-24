@@ -15,7 +15,7 @@ function ViewAll() {
         .then((data) => {
             if (data.success) {
                 console.log(data.blogs)
-                // setAllBlogs(data.blogs)
+                setAllBlogs(data.blogs)
             } else {
                 console.log("No Blogs")
             }
