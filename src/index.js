@@ -24,6 +24,9 @@ root.render(
         {/* Visit blog */}
         <Route path="/:blogAddress" element={<Blog />} />
 
+        {/* 404 error */}
+        <Route path="/404" element={<ErrorPage404 />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
