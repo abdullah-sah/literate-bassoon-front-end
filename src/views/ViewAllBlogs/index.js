@@ -9,6 +9,7 @@ import retrieve from "utils/retrieve";
 function ViewAll() {
 
     const [allBlogs, setAllBlogs] = useState([])
+    const [searchBarHeight, setSearchBarHeight] = useState(0);
 
     useEffect( () => {
         const data = retrieve("blog", "GET")
@@ -55,7 +56,7 @@ function ViewAll() {
                     <div
                     className="btn create-blog-btn"
                     onClick={() => {
-
+                        setSearchBarHeight(100)
                     }}
                     >
                     Search
@@ -64,7 +65,7 @@ function ViewAll() {
                 }
             ></NavBar>
 
-            <SearchBar/>
+            <SearchBar height={searchBarHeight}/>
 
             <table className="AllBlogsMainDiv">
                 {checkIfAnyBlogs()}
