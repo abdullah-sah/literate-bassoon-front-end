@@ -1,12 +1,17 @@
-async function retrieve(urlEnd, method, body = {}) {
+async function retrieve(urlEnd, method, body = null) {
 	try {
-		const result = await fetch(`http://localhost:5001/${urlEnd}`, {
+		let reqObj = {
 			method: method,
 			headers: {
 				"Content-Type": "application/json",
-			},
-			body: body,
-		});
+			}
+		}
+
+		if(body !== null){
+			reqObj['body'] = body;
+		}
+
+		const result = await fetch(`http://localhost:5001/${urlEnd}`, reqObj);
 		const data = await result.json();
 		return data;
 	} catch (error) {
