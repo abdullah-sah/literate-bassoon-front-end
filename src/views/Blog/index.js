@@ -14,13 +14,16 @@ function Blog() {
   const [newPostModalOpen, setNewPostModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const location = useLocation().pathname.substring(1);
-  const name = location.split("-")[0];
+  const [name, setName] = useState()
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch("http://localhost:3001/blog/" + location)
+    fetch("http://localhost:5001/blog/" + location)
       .then((res) => res.json())
-      .then((data) => setPosts(data.body))
+      .then((data) => {
+        setName(data.blogTitle)
+        setPosts(data.posts)
+      })
       .catch((e) => console.log(e));
   }, [location]);
 

@@ -3,6 +3,7 @@ import NavBar from "components/NavBar";
 import { useEffect, useState } from "react";
 import SearchElement from "components/SearchElement"
 import EmptySearchElement from "components/EmptySearchElement"
+import SearchBar from "components/SearchBar"
 
 function ViewAll() {
 
@@ -60,6 +61,8 @@ function ViewAll() {
                 </div>
                 }
             ></NavBar>
+
+            <SearchBar/>
 
             <table className="AllBlogsMainDiv">
                 {checkIfAnyBlogs()}
