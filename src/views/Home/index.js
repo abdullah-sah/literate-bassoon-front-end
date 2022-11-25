@@ -9,12 +9,22 @@ import PostPreview from "components/PostPreview";
 import TopBlogItem from "components/TopBlogItem";
 import NewBlogModal from "components/NewBlogModal";
 
+import isLoggedIn from "utils/isLoggedIn";
+
 function Home() {
   const [newBlogModalOpen, setNewBlogModalOpen] = useState(false);
+  const [signedInAddress, setSignedInAddress] = useState("")
+  const [signedInButtonVisible, setSignedInButtonVisible] = useState("none")
   const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0,0)
+    isLoggedIn().then((status) => {
+      if (status.loggedIn) {
+          setSignedInAddress(status.blogAddress)
+          setSignedInButtonVisible("block")
+      }
+    });
   })
 
   return (
@@ -37,6 +47,20 @@ function Home() {
                 }}
               >
                 View All Blogs
+              </div>
+            <div
+              className="btn create-blog-btn"
+              style={{
+                display: signedInButtonVisible,
+                backgroundColor: "#FFFFFF",
+                color: "#1A1919",
+                fontWeight: "400"
+              }}
+                onClick={() => {
+                  navigate(`/${signedInAddress}`)
+                }}
+              >
+                Signed In
               </div>
           </div>
         }

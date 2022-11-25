@@ -14,9 +14,9 @@ function ViewAll() {
 
     const [loggedInAddress, setLoggedInAddress] = useState("");
 
-    const [searchButtonText, setSearchButtonText] = useState("Search")
-    const [searchBarHeight, setSearchBarHeight] = useState("0px");
-    const [searchBarBorder, setSearchBarBorder] = useState("none")
+    const [searchButtonText, setSearchButtonText] = useState("Hide Search")
+    const [searchBarHeight, setSearchBarHeight] = useState("50px");
+    const [searchBarBorder, setSearchBarBorder] = useState("1px solid #1A1919")
 
     useEffect( () => {
         const data = retrieve("blog", "GET")
@@ -74,7 +74,7 @@ function ViewAll() {
                         if (searchButtonText === "Search") {
                             setSearchBarHeight("50px")
                             setSearchBarBorder("1px solid #1A1919")
-                            setSearchButtonText("Hide")
+                            setSearchButtonText("Hide Search")
                         } else {
                             setSearchBarHeight("0px")
                             setSearchBarBorder("none")
