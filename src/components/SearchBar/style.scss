@@ -7,26 +7,52 @@
     transition: height 0.1s linear;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     background-color: #FFC017;
     border-bottom: 1px solid #1A1919;
 
-    .SearchBarMainInput {
+    .SearchBarMain {
         width: 100%;
         margin: 0px 105px;
-        height: 80%;
-        border-radius: 5px;
-        padding: 10px 15.5px;
-        border: 1px solid #1A1919;
+        height: 50px;
         font-size: 16px;
+        display: grid;
+        grid-template-columns: 7fr 1fr;
+        column-gap: 30px;
+
+            .SearchBarMainInput {
+                width: 100%;
+                height: 100%;
+                padding: 0px 15.5px;
+                border: 1px solid #1A1919;
+                border-radius: 5px;
+            }
+
+            .SearchBarMainInput::placeholder {
+                color: $black-50;
+            }
+
+            .SearchBarMainInput:focus {
+                outline:none;
+            }
+
+            .SearchBarFilterButton {
+                border: 1px solid #1A1919;
+                border-radius: 30px;
+                background-color: #1A1919;
+                color: white;
+                transition: all 0.2s linear;
+            }
+
+            .SearchBarFilterButton:hover {
+                border-radius: 5px;
+            }
     }
 
-    .SearchBarMainInput::placeholder {
-        color: $black-50;
-    }
-
-    .SearchBarMainInput:focus {
-        outline:none;
+    .SearchBarFilterFunctionality {
+        height: 50px;
+        width: 100%;
     }
 
 }

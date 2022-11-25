@@ -17,6 +17,7 @@ function ViewAll() {
     const [searchButtonText, setSearchButtonText] = useState("Hide Search")
     const [searchBarHeight, setSearchBarHeight] = useState("50px");
     const [searchBarBorder, setSearchBarBorder] = useState("1px solid #1A1919")
+    const [searchBarVisibility, setSearchBarVisbility] = useState("Shown")
 
     useEffect( () => {
         const data = retrieve("blog", "GET")
@@ -75,10 +76,12 @@ function ViewAll() {
                             setSearchBarHeight("50px")
                             setSearchBarBorder("1px solid #1A1919")
                             setSearchButtonText("Hide Search")
+                            setSearchBarVisbility("Shown")
                         } else {
                             setSearchBarHeight("0px")
                             setSearchBarBorder("none")
                             setSearchButtonText("Search")
+                            setSearchBarVisbility("Hidden")
                         }
                     }}
                     >
@@ -88,7 +91,14 @@ function ViewAll() {
                 }
             ></NavBar>
 
-            <SearchBar height={searchBarHeight} border={searchBarBorder} searchData={allBlogs} setSearchData={setAllBlogs} allBlogs={reserveAllBlogs}/>
+            <SearchBar
+                height={searchBarHeight}
+                border={searchBarBorder}
+                searchData={allBlogs}
+                setSearchData={setAllBlogs}
+                allBlogs={reserveAllBlogs}
+                visibility={searchBarVisibility}
+            />
 
             <table className="AllBlogsMainDiv">
                 {checkIfAnyBlogs()}
