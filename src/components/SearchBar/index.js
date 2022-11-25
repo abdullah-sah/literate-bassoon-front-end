@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import "./style.scss"
+import FilterFunction from "../FilterFunction"
 
 function SearchBar(props) {
 
@@ -8,7 +9,7 @@ function SearchBar(props) {
 
     useEffect(() => {
         setSearchBarHeight(props.height)
-        setFilterButtonTitle("Filter")
+        setFilterButtonTitle("Sort")
     }, [props.visibility])
 
     return (
@@ -26,6 +27,7 @@ function SearchBar(props) {
                                 }
                                 return false
                             })
+                            console.log("filteredData", filteredData)
                             props.setSearchData(filteredData)
                         } else {
                             console.log("nothing in the search input")
@@ -35,19 +37,22 @@ function SearchBar(props) {
                 }></input>
                 <button className="SearchBarFilterButton" onClick={
                     () => {
-                        if (filterButtonTitle === "Filter") {
+                        if (filterButtonTitle === "Sort") {
                             setSearchBarHeight("100px")
-                            setFilterButtonTitle("Hide Filter")
+                            setFilterButtonTitle("Hide Sort")
                         } else  {
                             setSearchBarHeight(props.height)
-                            setFilterButtonTitle("Filter")
+                            setFilterButtonTitle("Sort")
                         }
                     }
                 }>{filterButtonTitle}</button>
             </div>
             <div className="SearchBarFilterFunctionality">
                 <div className="FilteringSection">
-
+                    <h3>Sort By:</h3>
+                    <FilterFunction data={props.searchData} setData={props.setSearchData} filterMethod={(a,b) => {
+                        return a.firstname === b.firstname ? 0 : a.firstname < b.firstname ? -1 : 1;
+                    }} filterTitle="A-Z"></FilterFunction>
                 </div>
             </div>
         </div>

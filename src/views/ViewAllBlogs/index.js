@@ -22,40 +22,50 @@ function ViewAll() {
     useEffect( () => {
         const data = retrieve("blog", "GET")
           // call the function
-        data.then((actualData) => {
-            console.log(actualData)
-            if (actualData.success) {
-                console.log(actualData.blogs)
-                setAllBlogs(actualData.blogs)
-                setReserveAllBlogs(actualData.blogs)
-            } else {
-                console.log("No Blogs")
-            }
-        })
 
         isLoggedIn().then((status) => {
             if (status.loggedIn) {
-                setLoggedInAddress(status.blogAddress)
+                return status.blogAddress
                 console.log("logged in");
             }
-        });
+        }).then((address) => {
+            data.then((actualData) => {
+                console.log("loggedInAddress", address)
+                if (actualData.success) {
+                    console.log(actualData.blogs)
+                    const changed = [];
+                    actualData.blogs.forEach(value => {
+                        if (value.address === address) {
+                            changed.push({...value, currentlyLoggedIn: true})
+                            return;
+                        }
+                        changed.push({...value, currentlyLoggedIn: false})
+                    })
+
+                    setAllBlogs(changed)
+                    setReserveAllBlogs(changed)
+
+                    console.log(changed)
+                } else {
+                    console.log("No Blogs")
+                }
+            })
+        })
     }, [])
 
 
     function checkIfAnyBlogs() {
-        console.log("Function called")
         if (allBlogs.length === 0) {
             return (
                 <EmptySearchElement />
             )
         } else {
-            console.log("Adding blogs")
             return (
                 allBlogs.map((blog) => {
                     return (
                         <>
                             <tbody>
-                                <SearchElement blogData={blog} loggedInAddress={loggedInAddress}/>
+                                <SearchElement blogData={blog}/>
                             </tbody>
                         </>
                     )

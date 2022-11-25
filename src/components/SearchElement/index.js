@@ -13,16 +13,18 @@ function SearchElement(props) {
 
     const [loggedIn, setLoggedIn] = useState("")
     const [loggedInVisibility, setLoggedInVisibility] = useState("none")
-
-    console.log(blogData)
     useEffect(() => {
         const prettyDate = createPrettyDate(blogData.createdAt)
         setCreationDate(prettyDate)
 
-        console.log("Address", loggedInAddress)
-        if (blogData.address === loggedInAddress) {
+        if (blogData.currentlyLoggedIn) {
+            console.log(`${blogData.name} is logged in`)
             setLoggedIn("Logged In")
             setLoggedInVisibility("flex")
+        } else {
+            console.log(`${blogData.name} is NOT logged in`)
+            setLoggedIn("")
+            setLoggedInVisibility("none")
         }
 
     })
