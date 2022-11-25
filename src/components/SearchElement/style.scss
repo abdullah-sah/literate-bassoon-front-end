@@ -36,6 +36,10 @@
         display: grid;
         row-gap: 10px;
 
+        h2 {
+            color: $black-80;
+        }
+
         .LoggedInString {
             text-align: right;
             width: fit-content;
