@@ -107,6 +107,7 @@ function Blog() {
               creationDate={item.creation_date.slice(0, 10)}
               content={item.content}
               canEdit={loggedIn}
+              postId={item.id}
             ></Post>
           );
         })}
