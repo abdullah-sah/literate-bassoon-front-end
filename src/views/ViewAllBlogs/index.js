@@ -12,49 +12,60 @@ function ViewAll() {
     const [allBlogs, setAllBlogs] = useState([]);
     const [reserveAllBlogs, setReserveAllBlogs] = useState([]);
 
-    const [loggedInAddress, setLoggedInAddress] = useState("");
-
     const [searchButtonText, setSearchButtonText] = useState("Hide Search")
     const [searchBarHeight, setSearchBarHeight] = useState("50px");
     const [searchBarBorder, setSearchBarBorder] = useState("1px solid #1A1919")
+    const [searchBarVisibility, setSearchBarVisbility] = useState("Shown")
 
     useEffect( () => {
         const data = retrieve("blog", "GET")
-          // call the function
-        data.then((actualData) => {
-            console.log(actualData)
-            if (actualData.success) {
-                console.log(actualData.blogs)
-                setAllBlogs(actualData.blogs)
-                setReserveAllBlogs(actualData.blogs)
-            } else {
-                console.log("No Blogs")
-            }
-        })
+        // call the function
 
         isLoggedIn().then((status) => {
             if (status.loggedIn) {
-                setLoggedInAddress(status.blogAddress)
-                console.log("logged in");
+                return status.blogAddress
             }
-        });
+        }).then((address) => {
+            data.then((actualData) => {
+                if (actualData.success) {
+                    const changed = [];
+                    actualData.blogs.forEach(value => {
+                        if (value.address === address) {
+                            changed.push({...value, currentlyLoggedIn: true})
+                            return;
+                        }
+                        changed.push({...value, currentlyLoggedIn: false})
+                    })
+
+                    changed.sort((a, b) => {
+                        const textA = a.name.toLowerCase();
+                        const textB = b.name.toLowerCase();
+                        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                    })
+
+                    setAllBlogs(changed)
+                    setReserveAllBlogs(changed)
+
+                } else {
+                    console.log("No Blogs")
+                }
+            })
+        })
     }, [])
 
 
     function checkIfAnyBlogs() {
-        console.log("Function called")
         if (allBlogs.length === 0) {
             return (
                 <EmptySearchElement />
             )
         } else {
-            console.log("Adding blogs")
             return (
                 allBlogs.map((blog) => {
                     return (
                         <>
                             <tbody>
-                                <SearchElement blogData={blog} loggedInAddress={loggedInAddress}/>
+                                <SearchElement blogData={blog}/>
                             </tbody>
                         </>
                     )
@@ -75,10 +86,12 @@ function ViewAll() {
                             setSearchBarHeight("50px")
                             setSearchBarBorder("1px solid #1A1919")
                             setSearchButtonText("Hide Search")
+                            setSearchBarVisbility("Shown")
                         } else {
                             setSearchBarHeight("0px")
                             setSearchBarBorder("none")
                             setSearchButtonText("Search")
+                            setSearchBarVisbility("Hidden")
                         }
                     }}
                     >
@@ -88,7 +101,14 @@ function ViewAll() {
                 }
             ></NavBar>
 
-            <SearchBar height={searchBarHeight} border={searchBarBorder} searchData={allBlogs} setSearchData={setAllBlogs} allBlogs={reserveAllBlogs}/>
+            <SearchBar
+                height={searchBarHeight}
+                border={searchBarBorder}
+                searchData={allBlogs}
+                setSearchData={setAllBlogs}
+                allBlogs={reserveAllBlogs}
+                visibility={searchBarVisibility}
+            />
 
             <table className="AllBlogsMainDiv">
                 {checkIfAnyBlogs()}
