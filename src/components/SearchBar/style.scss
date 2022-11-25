@@ -1,0 +1,28 @@
+@import "style/variables";
+
+.SearchBarContainer {
+    z-index: 0;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.1s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFC017;
+    border-bottom: 1px solid #1A1919;
+
+    .SearchBarMainInput {
+        width: 100%;
+        margin: 0px 105px;
+        height: 80%;
+        border-radius: 5px;
+        padding: 10px 15.5px;
+        border: 1px solid #1A1919;
+        font-size: 16px;
+    }
+
+    .SearchBarMainInput:focus {
+        outline:none;
+    }
+
+}

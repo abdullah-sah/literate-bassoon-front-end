@@ -1,0 +1,10 @@
+@import "style/variables";
+
+.EmptyBlogsPage {
+    display: flex;
+    width: 100%;
+    margin-top: 100px;
+    color: $black-40;
+    align-items: center;
+    justify-content: center;
+}

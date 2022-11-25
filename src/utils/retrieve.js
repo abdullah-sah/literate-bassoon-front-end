@@ -21,5 +21,4 @@ async function retrieve(urlEnd, method, body = null) {
 		};
 	}
 }
-
 export default retrieve;
