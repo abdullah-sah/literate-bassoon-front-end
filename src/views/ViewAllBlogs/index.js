@@ -12,8 +12,6 @@ function ViewAll() {
     const [allBlogs, setAllBlogs] = useState([]);
     const [reserveAllBlogs, setReserveAllBlogs] = useState([]);
 
-    const [loggedInAddress, setLoggedInAddress] = useState("");
-
     const [searchButtonText, setSearchButtonText] = useState("Hide Search")
     const [searchBarHeight, setSearchBarHeight] = useState("50px");
     const [searchBarBorder, setSearchBarBorder] = useState("1px solid #1A1919")
@@ -21,18 +19,15 @@ function ViewAll() {
 
     useEffect( () => {
         const data = retrieve("blog", "GET")
-          // call the function
+        // call the function
 
         isLoggedIn().then((status) => {
             if (status.loggedIn) {
                 return status.blogAddress
-                console.log("logged in");
             }
         }).then((address) => {
             data.then((actualData) => {
-                console.log("loggedInAddress", address)
                 if (actualData.success) {
-                    console.log(actualData.blogs)
                     const changed = [];
                     actualData.blogs.forEach(value => {
                         if (value.address === address) {
@@ -42,10 +37,15 @@ function ViewAll() {
                         changed.push({...value, currentlyLoggedIn: false})
                     })
 
+                    changed.sort((a, b) => {
+                        const textA = a.name.toLowerCase();
+                        const textB = b.name.toLowerCase();
+                        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                    })
+
                     setAllBlogs(changed)
                     setReserveAllBlogs(changed)
 
-                    console.log(changed)
                 } else {
                     console.log("No Blogs")
                 }

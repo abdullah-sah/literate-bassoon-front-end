@@ -50,9 +50,50 @@ function SearchBar(props) {
             <div className="SearchBarFilterFunctionality">
                 <div className="FilteringSection">
                     <h3>Sort By:</h3>
-                    <FilterFunction data={props.searchData} setData={props.setSearchData} filterMethod={(a,b) => {
-                        return a.firstname === b.firstname ? 0 : a.firstname < b.firstname ? -1 : 1;
-                    }} filterTitle="A-Z"></FilterFunction>
+
+                    <FilterFunction
+                    searchData={props.searchData}
+                    setSearchData={props.setSearchData}
+                    method={(a, b) => {
+                        console.log("sorting")
+                        const textA = a.name.toLowerCase();
+                        const textB = b.name.toLowerCase();
+                        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                    }}
+                    title="A-Z" isChecked={true}></FilterFunction>
+
+                    <FilterFunction
+                    searchData={props.searchData}
+                    setSearchData={props.setSearchData}
+                    method={(a, b) => {
+                        console.log("sorting")
+                        const textA = a.name.toLowerCase();
+                        const textB = b.name.toLowerCase();
+                        return (textA > textB) ? -1 : (textA < textB) ? 1 : 0;
+                    }}
+                    title="Z-A" isChecked={false}></FilterFunction>
+
+                    <FilterFunction
+                    searchData={props.searchData}
+                    setSearchData={props.setSearchData}
+                    method={(a, b) => {
+                        console.log("sorting")
+                        const dateA = new Date(a.createdAt);
+                        const dateB = new Date(b.createdAt);
+                        return (dateA > dateB) ? -1 : (dateA <= dateB) ? 1 : 0;
+                    }}
+                    title="Latest" isChecked={false}></FilterFunction>
+
+                    <FilterFunction
+                    searchData={props.searchData}
+                    setSearchData={props.setSearchData}
+                    method={(a, b) => {
+                        console.log("sorting")
+                        const dateA = new Date(a.createdAt);
+                        const dateB = new Date(b.createdAt);
+                        return (dateA < dateB) ? -1 : (dateA >= dateB) ? 1 : 0;
+                    }}
+                    title="Earliest" isChecked={false}></FilterFunction>
                 </div>
             </div>
         </div>

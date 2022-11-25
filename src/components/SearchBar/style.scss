@@ -55,6 +55,15 @@
         margin: 0px 105px;
         display: grid;
         align-items: center;
+
+        .FilteringSection {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+        }
+        .FilteringSection > * {
+            margin-right: 30px;
+        }
     }
 
 }
