@@ -27,6 +27,26 @@
         }
     }
 
+    .name-and-publish-date-div {
+        display: grid;
+        row-gap: 10px;
+    }
+
+    .url-and-logged-in-div {
+        display: grid;
+        row-gap: 10px;
+
+        .LoggedInString {
+            text-align: right;
+            width: fit-content;
+            height: auto;
+            padding: 5px;
+            color:$black-90;
+            background-color: #faa;
+            border-radius: 5px;
+        }
+    }
+
     h1 {
         font-size: 36px;
     }

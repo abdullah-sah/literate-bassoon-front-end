@@ -1,7 +1,9 @@
+import "./style.scss"
+
 function SearchBar(props) {
     return (
-        <div>
-            <input type="text" placeholder="Search for a blog..." style={{width: props.height}} className="SearchBarMain" onChange={
+        <div style={{height: props.height, borderBottom: props.border}} className="SearchBarContainer">
+            <input type="text" placeholder="Search for a blog..." className="SearchBarMainInput" onChange={
                 (event) => {
                     const lowerCaseSearchInput = (event.target.value.trim()).toLowerCase()
                     console.log(lowerCaseSearchInput)
