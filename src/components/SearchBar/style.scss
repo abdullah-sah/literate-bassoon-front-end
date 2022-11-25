@@ -21,6 +21,10 @@
         font-size: 16px;
     }
 
+    .SearchBarMainInput::placeholder {
+        color: $black-50;
+    }
+
     .SearchBarMainInput:focus {
         outline:none;
     }
