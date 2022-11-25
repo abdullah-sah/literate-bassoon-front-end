@@ -9,6 +9,7 @@ import retrieve from "utils/retrieve";
 function ViewAll() {
 
     const [allBlogs, setAllBlogs] = useState([])
+    const [reserveAllBlogs, setReserveAllBlogs] = useState([])
     const [searchBarHeight, setSearchBarHeight] = useState(0);
 
     useEffect( () => {
@@ -19,6 +20,7 @@ function ViewAll() {
             if (actualData.success) {
                 console.log(actualData.blogs)
                 setAllBlogs(actualData.blogs)
+                setReserveAllBlogs(actualData.blogs)
             } else {
                 console.log("No Blogs")
             }
@@ -65,7 +67,7 @@ function ViewAll() {
                 }
             ></NavBar>
 
-            <SearchBar height={searchBarHeight}/>
+            <SearchBar height={searchBarHeight} searchData={allBlogs} setSearchData={setAllBlogs} allBlogs={reserveAllBlogs}/>
 
             <table className="AllBlogsMainDiv">
                 {checkIfAnyBlogs()}
