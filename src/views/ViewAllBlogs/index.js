@@ -1,25 +1,43 @@
-import "./style.scss"
+import "./style.scss";
 import NavBar from "components/NavBar";
 import { useEffect, useState } from "react";
-import SearchElement from "components/SearchElement"
-import EmptySearchElement from "components/EmptySearchElement"
-import SearchBar from "components/SearchBar"
+import SearchElement from "components/SearchElement";
+import EmptySearchElement from "components/EmptySearchElement";
+import SearchBar from "components/SearchBar";
+import retrieve from "utils/retrieve";
+import isLoggedIn from "utils/isLoggedIn";
 
 function ViewAll() {
 
-    const [allBlogs, setAllBlogs] = useState([])
+    const [allBlogs, setAllBlogs] = useState([]);
+    const [reserveAllBlogs, setReserveAllBlogs] = useState([]);
 
-    useEffect(() => {
-        fetch("http://localhost:5001/blog") //Change port for own machine
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.success) {
-                console.log(data.blogs)
-                setAllBlogs(data.blogs)
+    const [loggedInAddress, setLoggedInAddress] = useState("");
+
+    const [searchButtonText, setSearchButtonText] = useState("Hide Search")
+    const [searchBarHeight, setSearchBarHeight] = useState("50px");
+    const [searchBarBorder, setSearchBarBorder] = useState("1px solid #1A1919")
+
+    useEffect( () => {
+        const data = retrieve("blog", "GET")
+          // call the function
+        data.then((actualData) => {
+            console.log(actualData)
+            if (actualData.success) {
+                console.log(actualData.blogs)
+                setAllBlogs(actualData.blogs)
+                setReserveAllBlogs(actualData.blogs)
             } else {
                 console.log("No Blogs")
             }
         })
+
+        isLoggedIn().then((status) => {
+            if (status.loggedIn) {
+                setLoggedInAddress(status.blogAddress)
+                console.log("logged in");
+            }
+        });
     }, [])
 
 
@@ -36,7 +54,7 @@ function ViewAll() {
                     return (
                         <>
                             <tbody>
-                                <SearchElement blogData={blog} />
+                                <SearchElement blogData={blog} loggedInAddress={loggedInAddress}/>
                             </tbody>
                         </>
                     )
@@ -53,16 +71,24 @@ function ViewAll() {
                     <div
                     className="btn create-blog-btn"
                     onClick={() => {
-
+                        if (searchButtonText === "Search") {
+                            setSearchBarHeight("50px")
+                            setSearchBarBorder("1px solid #1A1919")
+                            setSearchButtonText("Hide Search")
+                        } else {
+                            setSearchBarHeight("0px")
+                            setSearchBarBorder("none")
+                            setSearchButtonText("Search")
+                        }
                     }}
                     >
-                    Search
+                    {searchButtonText}
                     </div>
                 </div>
                 }
             ></NavBar>
 
-            <SearchBar/>
+            <SearchBar height={searchBarHeight} border={searchBarBorder} searchData={allBlogs} setSearchData={setAllBlogs} allBlogs={reserveAllBlogs}/>
 
             <table className="AllBlogsMainDiv">
                 {checkIfAnyBlogs()}
