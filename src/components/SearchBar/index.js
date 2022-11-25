@@ -94,6 +94,14 @@ function SearchBar(props) {
                         return (dateA < dateB) ? -1 : (dateA >= dateB) ? 1 : 0;
                     }}
                     title="Earliest" isChecked={false}></FilterFunction>
+
+                    <FilterFunction
+                    searchData={props.searchData}
+                    setSearchData={props.setSearchData}
+                    method={(a, b) => {
+                        return b.currentlyLoggedIn - a.currentlyLoggedIn
+                    }}
+                    title="Logged In At Top" isChecked={false}></FilterFunction>
                 </div>
             </div>
         </div>
