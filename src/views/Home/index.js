@@ -10,6 +10,7 @@ import TopBlogItem from "components/TopBlogItem";
 import NewBlogModal from "components/NewBlogModal";
 import retrieve from "utils/retrieve";
 import createPrettyDate from "utils/createPrettyDate";
+import shuffleArray from "utils/shuffleArray";
 
 import isLoggedIn from "utils/isLoggedIn";
 
@@ -17,6 +18,7 @@ function Home() {
 	const [newBlogModalOpen, setNewBlogModalOpen] = useState(false);
 	const navigate = useNavigate();
 	const [latestPosts, setLatestPosts] = useState([]);
+	const [topBlogs, setTopBlogs] = useState([]);
 	const [signedInAddress, setSignedInAddress] = useState("")
 	const [signedInButtonVisible, setSignedInButtonVisible] = useState("none")
 
@@ -48,8 +50,23 @@ function Home() {
 
 	};
 
+
+	const getTopBlogs = async () => {
+		const response = await retrieve("blog/", "GET");
+
+		// shuffling blogs
+		response.blogs = shuffleArray(response.blogs);
+		// console.log("THE BLOGS: ", response.blogs);
+		// console.log("SHUFFLED: ", response.blogs);
+
+		// getting top 5 blogs
+		const blogs = response.blogs.length < 5 ? response.blogs.slice(0, response.blogs.length) : response.blogs.slice(0, 5);
+		return blogs;
+	}
+
 	useEffect(() => {
 		getLatestPosts().then((e) => setLatestPosts(e));
+		getTopBlogs().then((e) => setTopBlogs(e));
 		isLoggedIn().then((status) => {
 			if (status.loggedIn) {
 				setSignedInAddress(status.blogAddress)
@@ -130,18 +147,20 @@ function Home() {
 			<div className="top-blogs-container">
 				<h4>Top blogs</h4>
 
-				<TopBlogItem
-				clickHandler={() => {
-					navigate("/bobs-blog");
-				}}
-				name="Bob's blog"
-				></TopBlogItem>
-				<TopBlogItem
-				clickHandler={() => {
-					navigate("/janes-blog");
-				}}
-				name="Jane's blog"
-				></TopBlogItem>
+				{
+					topBlogs?.map((value, index) => {
+						console.log(index);
+						return (
+							<TopBlogItem
+							clickHandler={() => {
+								navigate(`${value.address}`)
+							}}
+							name={`${value.name}'s blog`}
+							key={index}
+							></TopBlogItem>
+						)
+					})
+				}
 
 			</div>
 			</div>
