@@ -20,7 +20,6 @@ function Home() {
 	const getBlogById = async (id) => {
 		try {
 			const response = await retrieve(`blog/blogId/${id}`, "GET");
-			console.log(response)
 			return response;
 		} catch (err) {
 			navigate("/404");
@@ -28,28 +27,16 @@ function Home() {
 	}
 
 	const getLatestPosts = async () => {
-		console.log("LATEST")
 		try {
 			const response = await retrieve("blog/posts", "GET");
-			console.log(response)
 			// sorting by last created post (largest value for id)
 			response.posts.sort((a, b) => b.id - a.id);
 
-			// adding keys of 'blogName' and 'blogAddress' to each post
-			// const mapped = response.posts.map(async (value, index) => {
-			//   const { success, blog } = await getBlogById(value.BlogId);
-			//   value = { ...value, blogName: blog.name, blogAddress: blog.address };
-			//   return value;
-			// });
-
 			const mapped = await Promise.all(response.posts.map(async (value, index) => {
-				const {blog} = await getBlogById(value.BlogId)
-				console.log("blog", blog)
-				return { ...value, blogName: blog.name, blogAddress: blog.address }
+				const {blog} = await getBlogById(value.BlogId);
+				return { ...value, blogName: blog.name, blogAddress: blog.address };
 			}))
-			// setLatestPosts(response.posts);
-			// console.log("response is", response.posts);
-			return mapped
+			return mapped;
 		} catch (err) {
 			console.log(err);
 			navigate("/404");
@@ -103,12 +90,11 @@ function Home() {
 
 							{
 								latestPosts?.map((value, index) => {
-									console.log(value);
 									return (
 									<PostPreview
-									clickHandler={() => {
-										navigate(`/${value.blogAddress}`);
-										}}
+										clickHandler={() => {
+											navigate(`/${value.blogAddress}`);
+											}}
 										blogName={`${value.blogAddress}`}
 										title={`${value.title}`}
 										creationDate={`${createPrettyDate(value.createdAt)}`}
