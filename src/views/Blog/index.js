@@ -28,7 +28,8 @@ function Blog() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    retrieve("blog/" + location, 'GET').then((data) => {
+    retrieve("blog/" + location, "GET")
+      .then((data) => {
         if (data.success) {
           setName(data.blogTitle);
           setPosts(data.posts);
@@ -39,11 +40,13 @@ function Blog() {
       .catch((e) => console.log(e));
 
     isLoggedIn().then((status) => {
-      if(status.loggedIn && status.blogAddress == location){
+      if (status.loggedIn && status.blogAddress == location) {
         setLoggedIn(true);
         setLoginToken(status.token);
+        console.log("logged in");
       } else {
         setLoggedIn(false);
+        console.log("not logged in");
       }
     });
   }, [location]);
